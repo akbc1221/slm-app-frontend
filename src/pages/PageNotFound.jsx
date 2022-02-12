@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 const PageNotFound = () => {
+  document.title = "Predictor App | 404";
   const navigate = useNavigate();
   return (
     <div className="row d-flex flew-column align-items-center justify-content-center p-5 mt-5">

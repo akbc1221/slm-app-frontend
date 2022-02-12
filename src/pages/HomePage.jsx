@@ -11,6 +11,7 @@ import Pagination from "../components/Pagination";
 const baseURL = "http://127.0.0.1:5000";
 
 const HomePage = () => {
+  document.title = "Predictor App | Home";
   const [list, setList] = useState({});
   const [itemId, setItemId] = useState(-1);
   const [deleteAllFlag, setDeleteAllFlag] = useState(false);

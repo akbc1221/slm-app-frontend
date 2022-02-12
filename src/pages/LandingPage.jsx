@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  document.title = "Predictor App | Welcome";
   const navigate = useNavigate();
   return (
     <div className="row d-flex flew-column align-items-center justify-content-center p-5 mt-5">
