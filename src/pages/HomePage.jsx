@@ -6,12 +6,16 @@ import Navbar from "../components/Navbar";
 import List from "../components/List";
 import Form from "../components/Form";
 import DeleteModal from "../components/DeleteModal";
+import Pagination from "../components/Pagination";
 
 const baseURL = "http://127.0.0.1:5000";
 
 const HomePage = () => {
   const [list, setList] = useState({});
   const [itemId, setItemId] = useState(-1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+
   useEffect(() => {
     refreshList();
   }, []);
@@ -89,13 +93,20 @@ const HomePage = () => {
     setItemId(id);
   };
 
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <Navbar />
       <div className="container row">
         <main className="container ml-1 mr-1 col-9">
           <p className="text-center text-secondary">{Object.keys(list).length > 0 ? "recent predictions" : "No recent predictions"}</p>
-          {Object.keys(list).length > 0 ? <List data={list} getId={getId} /> : <></>}
+          {Object.keys(list).length > 0 ? <List data={list} getId={getId} indexOfFirstPost={indexOfFirstPost} indexOfLastPost={indexOfLastPost} /> : <></>}
         </main>
         <div className="col-2 mt-3">
           <button
@@ -112,6 +123,14 @@ const HomePage = () => {
       </div>
       <Form predictResult={predictResult} />
       <DeleteModal deleteById={deleteById} itemId={itemId} />
+      <div className="row fixed-bottom bg-light align-items-center pt-2">
+        <div className="col-8 mt-2">
+          <p className="text-center">Navigate through pages</p>
+        </div>
+        <div className="col-4 mt-2">
+          <Pagination postsPerPage={postsPerPage} totalPosts={Object.keys(list).length} paginate={paginate} />
+        </div>
+      </div>
     </>
   );
 };

@@ -74,7 +74,7 @@ const Form = ({ predictResult }) => {
                   autoComplete="off"
                   placeholder="eg., 900 mm/sec"
                 />
-                {formVal["scanSpeed"] != "" ? (
+                {formVal["scanSpeed"] !== "" ? (
                   !isValidInput(Number(formVal["scanSpeed"]), 1, 10000) ? (
                     <FormAlert text={"Value should be between 1 and 10000"} warning={true} />
                   ) : (
@@ -101,7 +101,7 @@ const Form = ({ predictResult }) => {
                   autoComplete="off"
                   placeholder="eg., 0.2 mm"
                 />
-                {formVal["hatchDistance"] != "" ? (
+                {formVal["hatchDistance"] !== "" ? (
                   !isValidInput(Number(formVal["hatchDistance"]), 0.0000001, 100) ? (
                     <FormAlert text={"Value should be between 0(exclusive) and 100"} warning={true} />
                   ) : (
@@ -129,7 +129,7 @@ const Form = ({ predictResult }) => {
                   autoComplete="off"
                   placeholder="eg., 300 watts"
                 />
-                {formVal["laserPower"] != "" ? (
+                {formVal["laserPower"] !== "" ? (
                   !isValidInput(Number(formVal["laserPower"]), 1, 10000) ? (
                     <FormAlert text={"Value should be between 1 and 10000"} warning={true} />
                   ) : (
@@ -156,7 +156,7 @@ const Form = ({ predictResult }) => {
                   autoComplete="off"
                   placeholder="eg., 0.08 mm"
                 />
-                {formVal["layerThickness"] != "" ? (
+                {formVal["layerThickness"] !== "" ? (
                   !isValidInput(Number(formVal["layerThickness"]), 0.0000001, 100) ? (
                     <FormAlert text={"Value should be between 0(exclusive) and 100"} warning={true} />
                   ) : (
