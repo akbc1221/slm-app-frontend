@@ -13,6 +13,7 @@ const baseURL = "http://127.0.0.1:5000";
 const HomePage = () => {
   const [list, setList] = useState({});
   const [itemId, setItemId] = useState(-1);
+  const [deleteAllFlag, setDeleteAllFlag] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
 
@@ -93,6 +94,13 @@ const HomePage = () => {
     setItemId(id);
   };
 
+  //delete all recent
+  const deleteAll = async () => {
+    await axios.delete(baseURL + "/api/clear/all");
+    setDeleteAllFlag(false);
+    refreshList();
+  };
+
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -122,9 +130,22 @@ const HomePage = () => {
         </div>
       </div>
       <Form predictResult={predictResult} />
-      <DeleteModal deleteById={deleteById} itemId={itemId} />
+      <DeleteModal deleteById={deleteById} itemId={itemId} deleteAll={deleteAll} deleteAllFlag={deleteAllFlag} />
       <div className="row fixed-bottom bg-light align-items-center pt-2">
-        <div className="col-8 mt-2">
+        {Object.keys(list).length > 0 ? (
+          <div className="col-4 m-3">
+            <button className="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" title="clear all recent" onClick={() => setDeleteAllFlag(true)}>
+              clear recent
+            </button>
+          </div>
+        ) : (
+          <div className="col-4 m-3">
+            <button className="btn btn-outline-danger" disabled>
+              clear recent
+            </button>
+          </div>
+        )}
+        <div className="col-2 mt-2">
           <p className="text-center">Navigate through pages</p>
         </div>
         <div className="col-4 mt-2">
