@@ -70,6 +70,7 @@ const Form = ({ predictResult }) => {
                   className="form-control"
                   id="speedInput"
                   name="speedInput"
+                  tabIndex={1}
                   required
                   autoComplete="off"
                   placeholder="eg., 900 mm/sec"
@@ -97,6 +98,7 @@ const Form = ({ predictResult }) => {
                   className="form-control"
                   id="distanceInput"
                   name="distanceInput"
+                  tabIndex={2}
                   required
                   autoComplete="off"
                   placeholder="eg., 0.2 mm"
@@ -125,6 +127,7 @@ const Form = ({ predictResult }) => {
                   className="form-control"
                   id="powerInput"
                   name="powerInput"
+                  tabIndex={3}
                   required
                   autoComplete="off"
                   placeholder="eg., 300 watts"
@@ -152,6 +155,7 @@ const Form = ({ predictResult }) => {
                   className="form-control"
                   id="thicknessInput"
                   name="thicknessInput"
+                  tabIndex={4}
                   required
                   autoComplete="off"
                   placeholder="eg., 0.08 mm"
