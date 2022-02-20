@@ -7,6 +7,7 @@ import List from "../components/List";
 import Form from "../components/Form";
 import DeleteModal from "../components/DeleteModal";
 import Pagination from "../components/Pagination";
+import AlertBar from "../components/AlertBar";
 
 const baseURL = "http://127.0.0.1:5000";
 
@@ -17,6 +18,8 @@ const HomePage = () => {
   const [deleteAllFlag, setDeleteAllFlag] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     refreshList();
@@ -58,7 +61,10 @@ const HomePage = () => {
                   layerThickness: inputs["layerThickness"],
                 },
               })
-              .then((res) => console.log(res))
+              .then((res) => {
+                // console.log(response.data);
+                setAlert(response.data);
+              })
               .catch((err) => console.log(err));
           } else {
             await axios
@@ -81,6 +87,7 @@ const HomePage = () => {
         }
       })
       .catch((err) => console.log(err));
+    setShowAlert(true);
     refreshList();
   };
 
@@ -112,6 +119,7 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
+      {showAlert && <AlertBar alert={alert} />}
       <div className="container row">
         <main className="container ml-1 mr-1 col-9">
           <p className="text-center text-secondary">{Object.keys(list).length > 0 ? "recent predictions" : "No recent predictions"}</p>
