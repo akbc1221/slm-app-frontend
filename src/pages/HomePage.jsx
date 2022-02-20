@@ -52,7 +52,7 @@ const HomePage = () => {
                 createdAt: date,
                 outcome: {
                   status: "success",
-                  value: response.data.toFixed(3),
+                  value: response.data,
                 },
                 inputs: {
                   scanSpeed: inputs["scanSpeed"],
@@ -62,8 +62,8 @@ const HomePage = () => {
                 },
               })
               .then((res) => {
-                // console.log(response.data);
-                setAlert(response.data);
+                console.log(res);
+                // setAlert(response.data);
               })
               .catch((err) => console.log(err));
           } else {
@@ -85,6 +85,7 @@ const HomePage = () => {
               .catch((err) => console.log(err));
           }
         }
+        setAlert(response.data);
       })
       .catch((err) => console.log(err));
     setShowAlert(true);

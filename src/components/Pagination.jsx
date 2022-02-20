@@ -3,6 +3,7 @@ import { useState } from "react";
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   const [page, setPage] = useState(1);
   const pageNumbers = [];
+  let pageElement;
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
@@ -31,18 +32,34 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
             </button>
           </li>
         )}
-        {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <button
-              onClick={() => {
-                setPage(number);
-                paginate(number);
-              }}
-              className="page-link">
-              {number}
-            </button>
-          </li>
-        ))}
+        {pageNumbers.map((number) => {
+          pageElement =
+            page === number ? (
+              <li key={number} className="page-item active">
+                <button
+                  onClick={() => {
+                    setPage(number);
+                    paginate(number);
+                  }}
+                  className="page-link">
+                  {number}
+                </button>
+              </li>
+            ) : (
+              <li key={number} className="page-item">
+                <button
+                  onClick={() => {
+                    setPage(number);
+                    paginate(number);
+                  }}
+                  className="page-link">
+                  {number}
+                </button>
+              </li>
+            );
+          return pageElement;
+        })}
+
         {page < pageNumbers.length ? (
           <li className="page-item">
             <button

@@ -15,7 +15,7 @@ const ListItem = ({ item, getId }) => {
         <div className="accordion-body">
           <div className="row">
             <h6 className="col-5">Densification</h6>
-            <p className="col-5 text-secondary">{result.value * 100}&#37;</p>
+            <p className="col-5 text-secondary">{Number(result.value).toFixed(4) * 100}&#37;</p>
 
             <span
               onClick={() => {
