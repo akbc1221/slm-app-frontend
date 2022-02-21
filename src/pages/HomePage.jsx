@@ -64,7 +64,6 @@ const HomePage = () => {
               })
               .then((res) => {
                 console.log(res);
-                // setAlert(response.data);
               })
               .catch((err) => console.log(err));
           } else {
@@ -114,7 +113,7 @@ const HomePage = () => {
 
   // clone result
   const makeClone = async (id) => {
-    axios
+    await axios
       .get(baseURL + `/api/recent/${id}`)
       .then((response) => {
         // console.log({ response });
@@ -123,6 +122,20 @@ const HomePage = () => {
       .catch((error) => {
         console.log(error);
       });
+    refreshList();
+  };
+
+  // star recent
+  const starResult = async (id) => {
+    await axios
+      .patch(baseURL + `/api/update/${id}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    refreshList();
   };
 
   // Get current posts
@@ -139,7 +152,11 @@ const HomePage = () => {
       <div className="container row">
         <main className="container ml-1 mr-1 col-9">
           <p className="text-center text-secondary">{Object.keys(list).length > 0 ? "recent predictions" : "No recent predictions"}</p>
-          {Object.keys(list).length > 0 ? <List data={list} getId={getId} indexOfFirstPost={indexOfFirstPost} indexOfLastPost={indexOfLastPost} makeClone={makeClone} /> : <></>}
+          {Object.keys(list).length > 0 ? (
+            <List data={list} getId={getId} indexOfFirstPost={indexOfFirstPost} indexOfLastPost={indexOfLastPost} makeClone={makeClone} starResult={starResult} />
+          ) : (
+            <></>
+          )}
         </main>
         <div className="col-2 mt-3">
           <button

@@ -1,5 +1,7 @@
-const ListItem = ({ item, getId, makeClone }) => {
-  const { id, createdAt, outcome, inputs } = { ...item };
+import { useState } from "react";
+
+const ListItem = ({ item, getId, makeClone, starResult }) => {
+  const { id, createdAt, outcome, inputs, starred } = { ...item };
   const result = JSON.parse(outcome);
   const user_input = JSON.parse(inputs);
 
@@ -14,12 +16,20 @@ const ListItem = ({ item, getId, makeClone }) => {
       <div id={`collapse${id}`} className="accordion-collapse collapse" data-bs-parent="#list">
         <div className="accordion-body">
           <div className="row">
-            <h6 className="col-5">Densification</h6>
-            <p className="col-3 text-secondary">{Number(result.value).toFixed(4) * 100}&#37;</p>
-
+            <h6 className="col-4">Densification</h6>
+            <p className="col-2 text-secondary">{result.value * 100}&#37;</p>
             <span
-              onClick={() => {
-                makeClone(id);
+              onClick={async () => {
+                await starResult(id);
+              }}
+              className="col-2"
+              title="star result"
+              style={{ cursor: "pointer" }}>
+              {starred ? <i className="fas fa-star text-warning"></i> : <i className="far fa-star text-secondary"></i>}
+            </span>
+            <span
+              onClick={async () => {
+                await makeClone(id);
               }}
               className="col-2"
               data-bs-toggle="modal"
