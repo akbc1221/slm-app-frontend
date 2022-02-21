@@ -61,6 +61,7 @@ const HomePage = () => {
                   laserPower: inputs["laserPower"],
                   layerThickness: inputs["layerThickness"],
                 },
+                tags: inputs["tags"],
               })
               .then((res) => {
                 console.log(res);
@@ -80,6 +81,7 @@ const HomePage = () => {
                   laserPower: inputs["laserPower"],
                   layerThickness: inputs["layerThickness"],
                 },
+                tags: inputs["tags"],
               })
               .then((res) => console.log(res))
               .catch((err) => console.log(err));

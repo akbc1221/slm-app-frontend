@@ -10,6 +10,7 @@ const Form = ({ predictResult, formRefill }) => {
       hatchDistance: parsed.hatchDistance,
       laserPower: parsed.laserPower,
       layerThickness: parsed.layerThickness,
+      tags: formRefill.tags,
       save: true,
     };
   } else {
@@ -18,6 +19,7 @@ const Form = ({ predictResult, formRefill }) => {
       hatchDistance: "",
       laserPower: "",
       layerThickness: "",
+      tags: "",
       save: false,
     };
   }
@@ -45,6 +47,7 @@ const Form = ({ predictResult, formRefill }) => {
       hatchDistance: Number(formVal["hatchDistance"]),
       laserPower: Number(formVal["laserPower"]),
       layerThickness: Number(formVal["layerThickness"]),
+      tags: formVal["tags"],
       save: formVal["save"],
     });
     clearForm();
@@ -188,6 +191,24 @@ const Form = ({ predictResult, formRefill }) => {
                 ) : (
                   <></>
                 )}
+              </div>
+              <div className="mb-3">
+                <label htmlFor="tagsInput" className="form-label">
+                  Add tags
+                </label>
+                <input
+                  onChange={(e) => {
+                    setFormVal({ ...formVal, tags: e.target.value });
+                  }}
+                  value={formVal["tags"]}
+                  type="text"
+                  className="form-control"
+                  id="tagsInput"
+                  name="tagsInput"
+                  tabIndex={5}
+                  autoComplete="off"
+                  placeholder="use a comma(,) for multi tags"
+                />
               </div>
               <div className="mb-3 form-check">
                 <input

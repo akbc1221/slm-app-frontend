@@ -1,9 +1,8 @@
-import { useState } from "react";
-
 const ListItem = ({ item, getId, makeClone, starResult }) => {
-  const { id, createdAt, outcome, inputs, starred } = { ...item };
+  const { id, createdAt, outcome, inputs, starred, tags } = { ...item };
   const result = JSON.parse(outcome);
   const user_input = JSON.parse(inputs);
+  const tagList = tags.split(",");
 
   return (
     <div className="accordion-item">
@@ -84,6 +83,14 @@ const ListItem = ({ item, getId, makeClone, starResult }) => {
               </tr>
             </tbody>
           </table>
+          {tagList.map((tag) => {
+            return (
+              <>
+                <span className="badge rounded-pill bg-secondary">{tag.trim()}</span>
+                &nbsp;
+              </>
+            );
+          })}
         </div>
       </div>
     </div>
