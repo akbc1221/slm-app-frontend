@@ -1,7 +1,9 @@
 const Tag = ({ tag }) => {
   return (
     <>
-      <span className="badge rounded-pill bg-secondary">{tag.trim()}</span>
+      <span className="badge rounded-pill bg-secondary" title={tag.trim()}>
+        {tag.trim()}
+      </span>
       &nbsp;
     </>
   );

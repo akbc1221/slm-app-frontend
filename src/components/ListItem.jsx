@@ -24,9 +24,8 @@ const ListItem = ({ item, getId, makeClone, starResult }) => {
                 await starResult(id);
               }}
               className="col-2"
-              title="star result"
               style={{ cursor: "pointer" }}>
-              {starred ? <i className="fas fa-star text-warning"></i> : <i className="far fa-star text-secondary"></i>}
+              {starred ? <i className="fas fa-star text-warning" title="unstar"></i> : <i className="far fa-star text-secondary" title="star"></i>}
             </span>
             <span
               onClick={async () => {
