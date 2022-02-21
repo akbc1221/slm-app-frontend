@@ -1,3 +1,5 @@
+import Tag from "./Tag";
+
 const ListItem = ({ item, getId, makeClone, starResult }) => {
   const { id, createdAt, outcome, inputs, starred, tags } = { ...item };
   const result = JSON.parse(outcome);
@@ -83,13 +85,8 @@ const ListItem = ({ item, getId, makeClone, starResult }) => {
               </tr>
             </tbody>
           </table>
-          {tagList.map((tag) => {
-            return (
-              <>
-                <span className="badge rounded-pill bg-secondary">{tag.trim()}</span>
-                &nbsp;
-              </>
-            );
+          {tagList.map((tag, idx) => {
+            return <Tag tag={tag} key={idx} />;
           })}
         </div>
       </div>
