@@ -20,6 +20,7 @@ const HomePage = () => {
   const [postsPerPage] = useState(6);
   const [showAlert, setShowAlert] = useState(false);
   const [alert, setAlert] = useState("");
+  const [formRefill, setFormRefill] = useState("");
 
   useEffect(() => {
     refreshList();
@@ -89,6 +90,7 @@ const HomePage = () => {
       })
       .catch((err) => console.log(err));
     setShowAlert(true);
+    setFormRefill("");
     refreshList();
   };
 
@@ -110,6 +112,19 @@ const HomePage = () => {
     refreshList();
   };
 
+  // clone result
+  const makeClone = async (id) => {
+    axios
+      .get(baseURL + `/api/recent/${id}`)
+      .then((response) => {
+        // console.log({ response });
+        setFormRefill(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -124,7 +139,7 @@ const HomePage = () => {
       <div className="container row">
         <main className="container ml-1 mr-1 col-9">
           <p className="text-center text-secondary">{Object.keys(list).length > 0 ? "recent predictions" : "No recent predictions"}</p>
-          {Object.keys(list).length > 0 ? <List data={list} getId={getId} indexOfFirstPost={indexOfFirstPost} indexOfLastPost={indexOfLastPost} /> : <></>}
+          {Object.keys(list).length > 0 ? <List data={list} getId={getId} indexOfFirstPost={indexOfFirstPost} indexOfLastPost={indexOfLastPost} makeClone={makeClone} /> : <></>}
         </main>
         <div className="col-2 mt-3">
           <button
@@ -139,7 +154,7 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-      <Form predictResult={predictResult} />
+      <Form predictResult={predictResult} formRefill={formRefill} />
       <DeleteModal deleteById={deleteById} itemId={itemId} deleteAll={deleteAll} deleteAllFlag={deleteAllFlag} />
       <div className="row fixed-bottom bg-light align-items-center pt-2">
         {Object.keys(list).length > 0 ? (

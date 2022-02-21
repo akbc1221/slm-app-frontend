@@ -1,4 +1,4 @@
-const ListItem = ({ item, getId }) => {
+const ListItem = ({ item, getId, makeClone }) => {
   const { id, createdAt, outcome, inputs } = { ...item };
   const result = JSON.parse(outcome);
   const user_input = JSON.parse(inputs);
@@ -15,8 +15,20 @@ const ListItem = ({ item, getId }) => {
         <div className="accordion-body">
           <div className="row">
             <h6 className="col-5">Densification</h6>
-            <p className="col-5 text-secondary">{Number(result.value).toFixed(4) * 100}&#37;</p>
+            <p className="col-3 text-secondary">{Number(result.value).toFixed(4) * 100}&#37;</p>
 
+            <span
+              onClick={() => {
+                makeClone(id);
+              }}
+              className="col-2"
+              data-bs-toggle="modal"
+              data-bs-target="#formModal"
+              data-bs-placement="top"
+              title="clone result"
+              style={{ cursor: "pointer" }}>
+              <i className="fas fa-clone text-secondary"></i>
+            </span>
             <span
               onClick={() => {
                 getId(id);

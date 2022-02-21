@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormAlert from "./FormAlert";
 
-const Form = ({ predictResult }) => {
-  const [formVal, setFormVal] = useState({
-    scanSpeed: "",
-    hatchDistance: "",
-    laserPower: "",
-    layerThickness: "",
-    save: false,
-  });
+const Form = ({ predictResult, formRefill }) => {
+  let prevData;
+  if (formRefill) {
+    const parsed = JSON.parse(formRefill.inputs);
+    prevData = {
+      scanSpeed: parsed.scanSpeed,
+      hatchDistance: parsed.hatchDistance,
+      laserPower: parsed.laserPower,
+      layerThickness: parsed.layerThickness,
+      save: true,
+    };
+  } else {
+    prevData = {
+      scanSpeed: "",
+      hatchDistance: "",
+      laserPower: "",
+      layerThickness: "",
+      save: false,
+    };
+  }
+
+  const [formVal, setFormVal] = useState(prevData);
+
+  useEffect(() => {
+    setFormVal(prevData);
+  }, [formRefill]);
 
   const clearForm = () => {
     setFormVal({
@@ -19,6 +37,7 @@ const Form = ({ predictResult }) => {
       save: false,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await predictResult({
