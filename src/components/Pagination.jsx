@@ -35,7 +35,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         {pageNumbers.map((number) => {
           pageElement =
             page === number ? (
-              <li key={number} className="page-item active">
+              <li key={number} className="page-item me-1 ms-1 active">
                 <button
                   onClick={() => {
                     setPage(number);
@@ -46,7 +46,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
                 </button>
               </li>
             ) : (
-              <li key={number} className="page-item">
+              <li key={number} className="page-item me-1 ms-1">
                 <button
                   onClick={() => {
                     setPage(number);
