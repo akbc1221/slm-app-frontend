@@ -158,7 +158,7 @@ const HomePage = () => {
     setTimeout(() => {
       refreshList();
       setShowSpinner(false);
-    }, 1000);
+    }, 1800);
   };
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
