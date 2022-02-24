@@ -12,7 +12,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     <nav>
       <ul className="pagination">
         {page > 1 ? (
-          <li className="page-item">
+          <li className="page-item me-1">
             <button
               onClick={() => {
                 paginate(Math.max(1, page - 1));
@@ -24,7 +24,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
             </button>
           </li>
         ) : (
-          <li className="page-item">
+          <li className="page-item me-1">
             <button className="page-link bg-light" disabled>
               <span className="text-dark" aria-hidden="true">
                 &laquo;
@@ -35,7 +35,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         {pageNumbers.map((number) => {
           pageElement =
             page === number ? (
-              <li key={number} className="page-item me-1 ms-1 active">
+              <li key={number} className="page-item me-1 active">
                 <button
                   onClick={() => {
                     setPage(number);
@@ -46,7 +46,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
                 </button>
               </li>
             ) : (
-              <li key={number} className="page-item me-1 ms-1">
+              <li key={number} className="page-item me-1">
                 <button
                   onClick={() => {
                     setPage(number);

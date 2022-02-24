@@ -8,6 +8,7 @@ import Form from "../components/Form";
 import DeleteModal from "../components/DeleteModal";
 import Pagination from "../components/Pagination";
 import AlertBar from "../components/AlertBar";
+import SearchForm from "../components/SearchForm";
 
 const baseURL = "http://127.0.0.1:5000";
 
@@ -21,6 +22,7 @@ const HomePage = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alert, setAlert] = useState("");
   const [formRefill, setFormRefill] = useState("");
+  const [showSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
     refreshList();
@@ -118,13 +120,11 @@ const HomePage = () => {
     await axios
       .get(baseURL + `/api/recent/${id}`)
       .then((response) => {
-        // console.log({ response });
         setFormRefill(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    refreshList();
   };
 
   // star recent
@@ -140,6 +140,26 @@ const HomePage = () => {
     refreshList();
   };
 
+  // search
+  const searchResult = async (queryParams) => {
+    axios
+      .get(baseURL + "/api/search" + queryParams)
+      .then((response) => {
+        setList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // loader
+  const loadSpinner = async () => {
+    setShowSpinner(true);
+    setTimeout(() => {
+      refreshList();
+      setShowSpinner(false);
+    }, 1000);
+  };
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -149,7 +169,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar searchResult={searchResult} />
       {showAlert && <AlertBar alert={alert} />}
       <div className="container row">
         <main className="container ml-1 mr-1 col-9">
@@ -171,9 +191,24 @@ const HomePage = () => {
               <i className="fas fa-plus text-white"></i>
             </span>
           </button>
+          {!showSpinner ? (
+            <button
+              className="btn position-fixed mt-5"
+              title="refresh list"
+              onClick={async () => {
+                await loadSpinner();
+              }}>
+              <i className="fas fa-sync-alt fa-lg text-secondary"></i>
+            </button>
+          ) : (
+            <button className="btn position-fixed mt-5" title="loading..." disabled>
+              <i className="fas fa-sync-alt fa-lg fa-spin text-danger"></i>
+            </button>
+          )}
         </div>
       </div>
       <Form predictResult={predictResult} formRefill={formRefill} />
+      <SearchForm searchResult={searchResult} />
       <DeleteModal deleteById={deleteById} itemId={itemId} deleteAll={deleteAll} deleteAllFlag={deleteAllFlag} />
       <div className="row fixed-bottom bg-light align-items-center pt-2">
         {Object.keys(list).length > 0 ? (

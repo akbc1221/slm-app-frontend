@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FormAlert from "./FormAlert";
 
 const Form = ({ predictResult, formRefill }) => {
@@ -25,6 +25,7 @@ const Form = ({ predictResult, formRefill }) => {
   }
 
   const [formVal, setFormVal] = useState(prevData);
+  const closeRef = useRef(null);
 
   useEffect(() => {
     setFormVal(prevData);
@@ -36,6 +37,7 @@ const Form = ({ predictResult, formRefill }) => {
       hatchDistance: "",
       laserPower: "",
       layerThickness: "",
+      tags: "",
       save: false,
     });
   };
@@ -47,17 +49,17 @@ const Form = ({ predictResult, formRefill }) => {
       hatchDistance: Number(formVal["hatchDistance"]),
       laserPower: Number(formVal["laserPower"]),
       layerThickness: Number(formVal["layerThickness"]),
-      tags: formVal["tags"],
+      tags: formVal["tags"].trim(),
       save: formVal["save"],
     });
-    clearForm();
+    closeRef.current.click();
   };
 
   const isValidInput = (value, lower, higher) => {
     return !(isNaN(value) || value <= lower || value > higher);
   };
   return (
-    <div className="modal" tabIndex={-1} id="formModal">
+    <div className="modal fade" tabIndex={-1} id="formModal">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -69,6 +71,7 @@ const Form = ({ predictResult, formRefill }) => {
               onClick={() => {
                 clearForm();
               }}
+              ref={closeRef}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               title="close"
