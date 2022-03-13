@@ -1,1 +1,2 @@
-export default baseUrl = "https://slm-project.herokuapp.com";
+const baseUrl = "https://slm-project.herokuapp.com";
+export default baseUrl;
