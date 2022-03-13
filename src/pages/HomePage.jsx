@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import baseURL from "../shared/endpoint.js";
 
 // components
 import Navbar from "../components/Navbar";
@@ -10,7 +11,7 @@ import Pagination from "../components/Pagination";
 import AlertBar from "../components/AlertBar";
 import SearchForm from "../components/SearchForm";
 
-const baseURL = "http://127.0.0.1:5000";
+// const baseURL = "http://127.0.0.1:5000";
 
 const HomePage = () => {
   document.title = "Predictor App | Home";
