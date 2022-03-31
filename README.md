@@ -9,6 +9,6 @@
 - **Machine Learning packages**
 - **Git VCS**
 
-<a href="https://netlify.com">Demo of app</a>
+<a href="https://slm-predictor.netlify.app/" target="_blank">Demo of app</a>
 
-![A glance of the app]("https://github.com/akbc1221/assets/blob/main/readme_img.png")
+<img src="https://github.com/akbc1221/assets/blob/main/readme_img.png" />
